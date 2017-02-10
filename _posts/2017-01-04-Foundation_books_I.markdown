@@ -214,6 +214,7 @@ their cosine values. Below, I show the outcome of the code:
  {% endhighlight %}
 
 I had several questions when I begin and now I can give answers to myself:
+
 1. Can the list of the nearest three books predict the previous or the next book of a book in either 
 author's chronological or in books own timeline order?   
     * It actually could. Following the author's timeline order, 11 out of 12 cases are in the nearest 
