@@ -216,17 +216,17 @@ their cosine values. Below, I show the outcome of the code:
 I had several questions when I begin and now I can give answers to myself:
 1. Can the list of the nearest three books predict the previous or the next book of a book in either 
 author's chronological or in books own timeline order?   
-+ It actually could. Following the author's timeline order, 11 out of 12 cases are in the nearest 
+    * It actually could. Following the author's timeline order, 11 out of 12 cases are in the nearest 
 book lists whereas all cases are correctly included according to the books timeline. 
 2. Can it identify closely related books, direct continuations of a story?  
-+ Yes. They appear with quite high cosine similarities. The cosine between 
+    * Yes. They appear with quite high cosine similarities. The cosine between 
 Foundation's Edge and Foundation and Earth is 0.798 and 0.819 for Prelude to Foundation and Forward 
 the Foundation. It is noticebly higher than the cosines between other books. 
 Next time I read a sequel or a prequel of a book, I may test by my code to know how close they are. 
 3. Does a book by the same author relate close by cosine?  
-+ Not really, I, Robot is not as close as Contact to the Foundation books. In fact, Contact has higher cosine similarities with the Foundation books than the I, Robot.  
+    * Not really, I, Robot is not as close as Contact to the Foundation books. In fact, Contact has higher cosine similarities with the Foundation books than the I, Robot.  
 4. Can the same genre be predicted?   
-+ Maybe, space travel sci-fi seems to be recognized by having a higher cosine similarities, 
+    * Maybe, space travel sci-fi seems to be recognized by having a higher cosine similarities, 
 but not sci-fi in general. I,Robot and Moby Dick have about the same cosine rankings with the books.  
 
 TFIDF did give me satisfiable results. Now, I am curious about the collocation method and whether 
