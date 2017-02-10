@@ -233,5 +233,5 @@ TFIDF did give me satisfiable results. Now, I am curious about the collocation m
 it will be better or not than TFIDF. I will write about it in my next [post][partII].
 
 [github-bookmatcher]: https://github.com/ecsuvd/book-matcher
-[partII]: PUT LINK HERE
+[partII]: http://data.altai.se/jekyll/update/2017/02/01/Foundation_books_II.html
 [book-url]: https://www.goodreads.com/book/show/17912916-data-science-for-business

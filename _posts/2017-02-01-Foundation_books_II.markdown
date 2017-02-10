@@ -99,4 +99,4 @@ Prelude to Foundation (0.604). Well, maybe it is so.
 
 At this point I can not say which of the methods I used were better. But I am satisfied by the results. 
 
-[partI]: PUT LINK HERE
+[partI]: http://data.altai.se/jekyll/update/2017/01/04/Foundation_books_I.html
