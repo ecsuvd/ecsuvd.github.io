@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Unusual Diamonds"
-date:   2017-02-19  18:41:20
+title: "Unusual Diamonds"
+date: 2017-02-26  18:41:20
 categories: blog
 ---
 
@@ -11,34 +11,35 @@ posted some of the solutions on my [github][github] account.
 
 The book shows analyses on some datasets which are either part of a package or a dataset-package.
 Most of the packages are released by the authors and are great for analysing data. 
-One of the datasets is called [Diamonds][diamond-link] which is a part of [ggplot2][ggplot-link] plotting package. 
-The package has data of diamond prices, carats and the other main characteristics.
+One of the datasets is called [Diamonds][diamond-link] which is a part of [ggplot2][ggplot-link] 
+plotting package. The package has data of diamond prices, carats and the other main characteristics.
 
 The [modelling part][model-link] of the book shows linear model 
-predictions of the diamond prices from the dataset. While a vast majority of the diamond 
-prices fall within some margins from the prediction, a few diamonds have unexplainably different 
+predictions of the diamond prices from the dataset. While vast majority of the diamond 
+prices fall within some margins from the predictions, a few diamonds have unexplainably different 
 prices. 
 
 The author firstly selects diamonds under 2.5 ct which are 99.7 % of all and then creates two 
 different linear models in which one of them considers carat as price factor and the other one 
-carat, color, cut and, clarity. After that filters cases with unusually high 
-residuals: more than twice or less than half the prediction. In one of the exercises, the reader is asked to explore whether there is anything unusual about those diamonds or not. The book steps are shown below:
-    {% highlight R %}
-
+considers carat, color, cut and, clarity. After that filters cases with unusually high 
+residuals: more than twice or less than half the prediction. In one of the exercises, 
+the reader is asked to explore whether there is anything unusual about those diamonds or not. 
+The book steps are shown below:
+{% highlight R %}
 # Loading packages.
-libr    ary(tidyverse)
+library(tidyverse)
 library(modelr)
 library(gridExtra)
 # Filtering diamonds under 2.5 ct. 
-diamonds    2 <- diamonds %>% 
+diamonds2 <- diamonds %>% 
   filter(carat <= 2.5) %>% 
   mutate(lprice = log2(price), lcarat = log2(carat))
 # Model 1: Price vs carat.
-mod_diamond     <- lm(lprice ~ lcarat, data = diamonds2)
+mod_diamond <- lm(lprice ~ lcarat, data = diamonds2)
 diamonds2 <- diamonds2 %>% 
   add_residuals(mod_diamond, "lresid")
 # Model 2: Price vs carat, color, cut, and clarity. 
-mod_diamond2 <-     lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
+mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
 diamonds2 <- diamonds2 %>% 
   add_residuals(mod_diamond2, "lresid2")
 # Filtering unusual cases. 
@@ -51,7 +52,7 @@ unusual <- diamonds2 %>%
 {% endhighlight %}
 That shows me following table:
 {% highlight R %}
-> colnames(unusual)[colnames(unusual) == 'pred'] <- 'predicted'
+> colnames(unusual)[colnames(unusual) == "pred"] <- "predicted"
 > unusual   
 # A tibble: 16 <U+00D7> 11
    price predicted carat       cut color clarity depth table     x     y     z
@@ -78,8 +79,8 @@ First, I will check for anything unusual regarding their x, y, z dimensions in c
 sizes are wrongly registered in the database.
 Average x, y, z sizes of per carat category will be calculated and our unusual cases will be compared.
 {% highlight     R %}
-# round() is used to get rid of numerical errors by computer. 
 sample_carat = round(seq(0.2, 2.5, 0.01), digits = 3) 
+# round() is used to get rid of numerical errors by computer
 xmean <- 0
 ymean <- 0
 zmean <- 0
@@ -131,7 +132,6 @@ unusual <- unusual %>%
 After this the cases look as below:
 {% highlight R %}
 > select(unusual, price, predicted, wrong_carat_label, non_st_depth, non_st_table)
-    
 # A tibble: 16 <U+00D7> 5
    p    rice predicted wrong_carat_label non_st_depth non_st_table
       <int>     <dbl>             <chr>        <chr>        <chr>
@@ -191,7 +191,8 @@ dev.off()
 I can see in the left plot that our diamond is the only brown spot around 2.5 ct among 
 purple and pink dots (purple, pink means nearly colorless category whereas brown means colorless). 
 It seems underpriced for its color category too. But I can not say much about its cut. Obviously, 
-premium should mean good. My suspicion is that the diamond is either underpriced or one of its characteristics are swrongly registered with or without intention.
+premium should mean good. My suspicion is that the diamond is either underpriced or one of its 
+characteristics are wrongly registered with or without intention.
 
 I will add my concluded hypothesis to the table now. 
 {% highlight R %}
@@ -228,3 +229,4 @@ That shows to me the following:
 [diamond-link]: http://docs.ggplot2.org/0.9.3.1/diamonds.html
 [ggplot-link]: http://ggplot2.org/
 [model-link]: http://r4ds.had.co.nz/model-building.html
+
