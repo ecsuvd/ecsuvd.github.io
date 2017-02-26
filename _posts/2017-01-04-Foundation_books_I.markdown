@@ -2,7 +2,7 @@
 layout: post
 title:  "NLTK Analysis of Asimov's Foundation Series (part I)"
 date:   2017-01-04  20:41:20
-categories: jekyll update
+categories: blog
 ---
 
 I am recently learning about text processing and analysing. 
@@ -74,6 +74,7 @@ After that, an option to choose the method between term frequency and collocatio
 {% endhighlight %}
 
 In case of term frequency method was chosen how the code works is explained below.
+
 
 # Term Frequency
 

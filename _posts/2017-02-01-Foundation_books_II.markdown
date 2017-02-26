@@ -2,11 +2,12 @@
 layout: post
 title:  "NLTK Analysis of Asimov's Foundation Series (part II)"
 date:   2017-02-01  20:41:20
-categories: jekyll update
+categories: blog
 ---
 
 This is the second part of my previous [post][partI]. I will write about the second method of my 
 NLTK analysis on Isaac Asimov's Foundation Series.
+
 
 # Collocation Frequency
 In this method I used the collocations function of the NLTK library to find 30 collocations in each of the books and 
