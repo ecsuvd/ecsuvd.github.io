@@ -12,7 +12,7 @@ out the answer to that question in my own way. Even though there was a footnote 
 stated the data was simulated I still thought it was interesting regardless 
 if it was real or simulated.     
 
-I loaded the data in R and made a little bit polishing for a better presentation.  
+I loaded the data in R and made a bit of polishing for a better presentation.  
 {% highlight R %}
 # Loading library:
 library(tidyverse)
@@ -23,7 +23,7 @@ library(rpart)
 library(rpart.plot)
 
 # Loading and polishing:
-raw_data <- read_csv('Downloads/HR_comma_sep.csv')
+raw_data <- read_csv('HR_comma_sep.csv')
 hr_data <- raw_data
 colnames(hr_data)[colnames(hr_data) == 'Work_accident'] <- 'work_accident'
 colnames(hr_data)[colnames(hr_data) == 'average_montly_hours'] <- 'average_monthly_hours'
@@ -35,9 +35,9 @@ hr_data <- hr_data %>%
   )
 {% endhighlight %}
 The data contained 10 columns of information of about 15000 employees: employee's satisfaction, 
-last evaluation (I guess employer's evaluation), number of projects involved, 
-average monthly hours, time spend in the company, work accident, promotion in 
-last 5 years, type of position, salary category, and the employee left or not status.
+last evaluation (employer's evaluation, I guess), number of projects involved, 
+average monthly hours, time spent in the company, whether a work accident had occurred or not, 
+promotion in last 5 years, type of position, salary category, and whether the employee left or not.
 {% highlight R %}
 > head(hr_data)
 # A tibble: 14,999 <U+00D7> 10
@@ -69,12 +69,12 @@ corrplot(x, type = "upper", order = "hclust", tl.srt = 45)
 ![]({{ site.url }}/assets/hr_plot1.jpg){:height="500px" width="500px"}
 
 This correlation plot showed some obvious but not so strong tendencies: 
-1. Low satisfaction leads employee to leave. 
+1. Low satisfaction leads the employee to leave. 
 2. Being involved in more number of projects leads to more hours of work.
 3. An employee who works on more number of projects and works more hours is 
-considered "good" workers by the employer or vice versa. 
+considered a "good" worker by the employer and vice versa. 
 
-Overall, the plot did not give any strong clues. Then as a next step, I made pair plots 
+Overall, the plot did not give any strong clues. Then as the next step, I made a pair plots 
 between the discrete or continuous variables. 
 {% highlight R %}
 ggpairs(hr_data, columns = 1:5, aes(color = left, alpha = 0.01))
@@ -84,17 +84,17 @@ ggpairs(hr_data, columns = 1:5, aes(color = left, alpha = 0.01))
 
 My first revealings came - There were clustered patterns of leaving: 
 1. A group of unsatisfied, but highly evaluated and over worked ones. 
-I would call them as burnt-out workers.  
+I would call them *burnt-out workers*.  
 2. A group of medium-low satisfied, medium-low evaluated ones who worked 
-less than average. I would call them unmotivated workers. 
+less than average. I would call them *unmotivated workers*. 
 The work environment was not the best suit for them.  
 3. A group of highly satisfied and highly evaluated ones who spent more 
 than average amount of hours at work. It seems like a motivated, 
 high performing group who chose to leave. It was stated as the main question 
-of the dataset. Let me call them mysterious leavers.
+of the dataset. Let me call them *mysterious leavers*.
 
 One more observation was that the ones who left had worked under 6 years. 
-Moreover, the ones, who worked over approximately 280 hours, all left. 
+Moreover, the ones who worked over approximately 280 hours all left. 
 
 To complete my first order check a few more categorical or binary data 
 explorations followed for the remaining variables. 
@@ -133,8 +133,8 @@ dev.off()
 
 ![]({{ site.url }}/assets/hr_plot3.jpg){:height="200px" width="600px"}
 
-Surprisingly, work accident seemed not to be the reason of leaving. 
-On the other hand, there were lesser probability of leaving if employee was promoted.
+Surprisingly, having a work accident did not seem to be the reason for leaving. 
+Moreover, there was less probability of leaving if the employee was promoted.
 
 {% highlight R %}
 p3.pct <- hr_data %>% 
@@ -153,7 +153,7 @@ ggplot(hr_data, aes(x = sales)) +
 
 ![]({{ site.url }}/assets/hr_plot4.jpg){:height="500px" width="500px"}
 
-No strong dependency of quitting by their job positions could be said. 
+There is no strong dependency of leaving by job position. 
 HR had the highest rate of quitting whereas management had the lowest.
 
 {% highlight R %} 
@@ -176,15 +176,15 @@ Another obvious fact: Lower the salary higher the rate of quitting.
 
 As a summary of these bar plots, I could say that promotions and high salaries 
 could keep employees in the company whereas work accidents and type of jobs 
-did not really matter.   
+did not really matter.
 
 # Classification tree 
 
 Noticing the pattern of clustering in my pair plots I thought a classification analysis
-may give some deeper understanding of the data. The clustering looked somewhat simple 
-patterned and therefore, tree analysis seemed suitable.
+may give some deeper understanding of the data. The clustering pattern looked somewhat simple 
+and therefore, tree analysis seemed suitable.
 
-I splitted the data into training and testing sets and built a tree model.
+I split the data into training and testing sets and built a tree model.
 
 {% highlight R %}
 # Splitting into training and testing sets:  
@@ -214,12 +214,17 @@ come. I continued my analysis and plotted the tree.
 rpart.plot(tree, type = 2, extra = 2)
 {% endhighlight %}
 
-![]({{ site.url }}/assets/hr_plot6.jpg){:height="600px" width="600px"}
+![]({{ site.url }}/assets/hr_plot6.jpg){:height="450px" width="600px"}
+
+*Left side branches mean yes and right side branches mean no to the classification criterias. 
+Green leaves with "yes" mean left the company and blue leaves with "no" mean stayed.*
+
+
 
 My previously identified groups who left appeared clearer: 
 1. Burnt-out group: satisfaction level < 0.11, number of projects > 2.5
 2. Unmotivated group: satisfaction level < 0.46, projects < 2.5, last evaluation (0.45, 0.57) 
-3. Mysterious group: satisfaction level >0.46, time spend in the company (4.5, 6.5), monthly hour > 214, last evaluation > 0.81 
+3. Mysterious group: satisfaction level > 0.46, time spent in the company (4.5, 6.5), monthly hour > 214, last evaluation > 0.81 
 
 # Mysterious group analysis
 As the reason of quitting for the mysterious was unclear I decided to focus more analysis on this group.  
@@ -258,7 +263,7 @@ mysterious <- filter(hr_data,
 {% endhighlight %}
 
 On average they worked on 4-5 projects and only 3 of them got promoted in last 5 years. 
-Why were nearly anyone got no promotion should be investigated as it may give some clue.
+Why nearly everyone got no promotion should be investigated as it may give some clue.
  
 Then I made distribution plots of their satisfaction, last evaluation, 
 and average monthly hours.
@@ -282,7 +287,7 @@ grid.arrange(p1, p2, p3, ncol = 3)
 The ones who left had satisfaction levels quite precisely in between 0.7 and 0.95, 
 which seemed unreal to me. It could be that the data was simulated...   
 
-Furthermore, the number of projects and the salary distribution were checked by me. 
+Furthermore, the number of projects and the salary distribution were checked. 
 
 {% highlight R %}
 p6 <- ggplot(mysterious) +
@@ -299,7 +304,7 @@ grid.arrange(p6, p7, ncol = 2)
 Most employees in this group worked with more than 4 projects, but had either low 
 or medium level salary. Is this normal? 
 
-The suspicious condition lead me to run a few statistical check-ups. 
+The suspicious conditions lead me to run a few statistical check-ups. 
 I made percentage distributions of the salaries for all employees, 
 employees who spent the same length of time in the company  as the mysterious group,
 and the same time length and the same number of projects:
@@ -350,7 +355,7 @@ Only 2 % of the group had high salary in contrast to 8 % as company's average.
 It was a bit hard to understand what exactly low, medium, and high salary meant and 
 what the market salaries were for these people. 
 However, it felt to me that such good employees could easily get a better 
-salary promise from somewhere else. 
+salary somewhere else. 
 Moreover, I made a similar comparison in promotion facts and got the same results. 
 Only, the promotion data was highly skewed, so may not be quite accurate to show in 
 a table as I did for the salary.  
@@ -369,14 +374,14 @@ ggplot(mysterious) +
 Not much I could really tell about the graph above. 
 It seemed turnovers did not strongly depend on their departments.
 
-I beleive this group of people deserved higher salary or a better condition. 
-They could have got a better offer from somehwere else.
+I believe this group of people deserved higher salary or better working conditions. 
+They could have got a better offer from somewhere else.
 
 # Conclusions
 There are three main groups of employees who quit: burnt-outs, wrong-fits (unmotivated), 
 and possibly underpaid high-performers. The first group can be 
 quickly noted by having very low satisfaction factor and many 
-hours of working with high duties. The second group gets somewhat around 0.5 
+hours of working with many projects. The second group gets somewhat around 0.5 
 by employer's evaluation, has less than 3 projects, and has low-medium satisfaction.
 The third group employees are high performers who worked around 4-5 years and have 
 satisfaction level between 0.7 and 0.95. 
