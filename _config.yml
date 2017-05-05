@@ -25,7 +25,6 @@ github_username:  ecsuvd
 
 # Build settings
 markdown: kramdown
-theme: minima
 #gems:
 #  - jekyll-feed
 exclude:
