@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Unusual Diamonds"
+title: "Unusual Diamonds with R"
 date: 2017-02-26  18:41:20
 categories: blog
 ---

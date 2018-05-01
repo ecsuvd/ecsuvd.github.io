@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "NLTK Analysis of Asimov's Foundation Series (part I)"
+title:  "Python NLTK Analysis of Asimov's Foundation Series (part I)"
 date:   2017-01-04  20:41:20
 categories: blog
 ---
